@@ -13,63 +13,74 @@
 :root{--red:#b01c2e;--s:#1c1c1e;--line:#38383a;--dim:#8e8e93}
 html,body{height:100%;background:#000;color:#fff;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-.app{position:fixed;inset:0;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
+.app{position:fixed;top:0;left:0;right:0;height:100vh;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
 .screen{display:none;flex:1;min-height:0;flex-direction:column}
 .screen.on{display:flex}
+.screen.fade{animation:sf .28s ease both}
+.screen.fwd{animation:sfw .38s cubic-bezier(.2,.8,.2,1) both}
+.screen.back{animation:sbk .38s cubic-bezier(.2,.8,.2,1) both}
+@keyframes sf{from{opacity:0;transform:scale(.985)}}
+@keyframes sfw{from{opacity:0;transform:translateX(36px)}}
+@keyframes sbk{from{opacity:0;transform:translateX(-36px)}}
+@media (prefers-reduced-motion:reduce){.screen.fade,.screen.fwd,.screen.back{animation:none}.ind{transition:none}}
 .scroll{flex:1;overflow-y:auto;padding-bottom:112px;scrollbar-width:none}
 .scroll::-webkit-scrollbar{display:none}
-.top{display:flex;align-items:center;justify-content:space-between;padding:8px 16px 0;min-height:56px;flex:none}
+.top{display:flex;align-items:center;justify-content:space-between;padding:0 16px;min-height:44px;flex:none}
 .pill{background:var(--s);border-radius:99px;border:1px solid rgba(255,255,255,.09);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 4px 14px rgba(0,0,0,.5)}
-.title{font-size:32px;font-weight:700;letter-spacing:-.3px;padding:6px 16px 12px}
+.title{font-size:34px;line-height:41px;font-weight:700;letter-spacing:-.3px;padding:13px 16px 0}
+.title+.list{margin-top:9px}
 .ic{width:24px;height:24px;color:var(--red);stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
-.acts{display:flex;gap:2px;padding:3px 6px}
-.acts button{padding:4px}.acts .ic{width:28px;height:28px;stroke-width:1.6}
+.acts{display:flex;gap:2px;padding:2px 6px}
+.acts button{display:flex;padding:4px}.acts .ic{display:block;width:28px;height:28px;stroke-width:1.6}
 .back{display:flex;align-items:center;width:44px;height:44px;justify-content:center;padding:0;background:var(--s);border:1px solid rgba(255,255,255,.09);border-radius:50%}
 .back .ic{width:22px;height:22px;stroke-width:2.2;color:#fff}
 .h{font-size:17px;font-weight:600}
-.signout{color:var(--red);font-size:17px;padding:10px 20px}
+.signout{color:var(--red);font-size:19px;padding:9px 16px}
 
 /* cards */
-.car{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-top:14px}
+.car{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-top:clamp(20px,7.55vh,66px)}
 .car::-webkit-scrollbar{display:none}
-.slide{flex:0 0 100%;scroll-snap-align:center;padding:0 4%}
+.slide{flex:0 0 100%;scroll-snap-align:center;padding:0 5%}
 .cw{container-type:inline-size}
-.card{position:relative;overflow:hidden;aspect-ratio:722/456;border-radius:3.9cqw;color:#fff;background:linear-gradient(135deg,#3a0a11 0%,#74121f 36%,#a01828 72%,#bb1f31 100%);--c:#a01828}
-.card.teal{background:linear-gradient(135deg,#04262e 0%,#27444f 38%,#42606c 100%);--c:#27444f}
+.card{position:relative;overflow:hidden;aspect-ratio:722/456;border-radius:3.9cqw;color:#fff;background:linear-gradient(135deg,#2c080d 0%,#6a101c 34%,#9c1727 70%,#bb1f31 100%);--c:#4a0d15}
+.card.teal{background:linear-gradient(135deg,#04262e 0%,#27444f 38%,#42606c 100%);--c:#12303a}
 .card svg.bg{position:absolute;inset:0;width:100%;height:100%}
 .card::after{content:"";position:absolute;top:-15%;left:0;width:42%;height:130%;pointer-events:none;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.04) 18%,rgba(255,255,255,.22) 50%,rgba(255,255,255,.04) 82%,transparent 100%);animation:shine 2.4s ease-in-out infinite}
 @keyframes shine{0%{transform:translateX(-230%) skewX(-18deg);opacity:0}5%{opacity:1}30%{transform:translateX(290%) skewX(-18deg);opacity:0}100%{transform:translateX(290%) skewX(-18deg);opacity:0}}
 @media (prefers-reduced-motion:reduce){.card::after{animation:none}}
 .logo{position:absolute;left:5.5cqw;top:4.4cqw;display:flex;align-items:center;gap:1.5cqw}
-.logo i{width:6.7cqw;height:6.7cqw;background:#fff;border-radius:1.5cqw;display:grid;place-items:center;font:800 5.6cqw/1 "Helvetica Neue",Arial,sans-serif;font-style:normal;color:var(--c);padding-bottom:.4cqw}
-.logo b{font-size:7.3cqw;font-weight:500;letter-spacing:-.04em}
+.logo svg{width:6.7cqw;height:6.7cqw;color:var(--c);flex:none}
+.logo .wm{width:15.9cqw;height:5.45cqw;color:#fff;flex:none}
 .type{position:absolute;right:5.5cqw;top:5.6cqw;font-size:3.7cqw;text-transform:uppercase}
 .ph{position:absolute;left:5.5cqw;top:20cqw;width:29.9cqw;height:38.8cqw;border-radius:2.2cqw;overflow:hidden;background:rgba(255,255,255,.13);border:.3cqw solid rgba(255,255,255,.2);display:grid;place-items:center;cursor:pointer}
 .ph img{width:100%;height:100%;object-fit:cover}
-.ph svg{width:55%;stroke:rgba(255,255,255,.35);fill:none;stroke-width:1.1;stroke-linejoin:round}
-.who{position:absolute;left:41cqw;bottom:4.8cqw}
-.who small{display:block;font-size:3.4cqw;opacity:.9;margin-bottom:.6cqw}
-.who span{font-size:4.5cqw;font-weight:500}
+.ph svg{width:84%;stroke:rgba(255,255,255,.35);fill:none;stroke-width:1.1;stroke-linejoin:round}
+.who{position:absolute;left:41cqw;bottom:4.4cqw;line-height:1.2}
+.who small{display:block;font-size:3.4cqw;opacity:.9;margin-bottom:.4cqw}
+.who span{font-size:4.1cqw;font-weight:500}
 .age{position:absolute;left:67.5cqw;top:39.5cqw;transform:translate(-50%,-50%);font-size:19.5cqw;font-weight:300;line-height:1}
-.dots{display:flex;justify-content:center;gap:10px;margin:18px 0}
-.dots i{width:8px;height:8px;border-radius:50%;background:#48484a}.dots i.on{background:#8e8e93}
+.dots{display:flex;justify-content:center;gap:10px;margin:clamp(20px,7.7vh,67px) 0 24px}
+.dots i{width:7px;height:7px;border-radius:50%;background:#48484a}.dots i.on{background:#8e8e93}
 
 /* lists */
-.list{background:var(--s);border-radius:24px;margin:0 16px;overflow:hidden}
-.row{display:flex;align-items:center;gap:16px;width:100%;text-align:left;padding:0 18px;min-height:54px;font-size:17px;position:relative}
-.row+.row::before{content:"";position:absolute;top:0;left:58px;right:0;height:1px;background:var(--line)}
+.list{background:var(--s);border-radius:26px;margin:0 16px;overflow:hidden}
+.row{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:0 18px 0 20px;min-height:52px;font-size:17px;position:relative}
+.row+.row::before{content:"";position:absolute;top:0;left:57px;right:0;height:1px;background:var(--line)}
 .row span{flex:1}
 .row .ok{width:22px;height:22px;stroke-width:2.4}
+.list.pad{padding:6px 0}
 .sub{color:var(--dim);font-size:15px;padding:4px 22px 18px}
-.btn{display:block;margin:22px auto 0;background:#dde1e5;color:#1e3340;font-weight:700;font-size:17px;border-radius:99px;padding:14px 34px}
+.btn{display:block;margin:51px auto 0;background:#dde1e5;color:#1e3340;font-weight:700;font-size:16px;border-radius:99px;padding:7px 30px}
 .btn.red{background:var(--red);color:#fff;width:calc(100% - 32px);margin:26px 16px 0;padding:17px;font-size:18px}
-.ver{text-align:center;color:#2c4152;font-size:16px;margin-top:56px}
+.ver{text-align:center;color:#2c4152;font-size:17px;margin-top:76px}
 
 /* tab bar */
-.tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:max(8px,calc(env(safe-area-inset-bottom) * .4));display:flex;padding:5px;gap:2px;z-index:20}
-.tab{display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 26px 6px;border-radius:99px;font-size:11.5px;font-weight:600}
-.tab .ic{color:#fff}
-.tab.on{background:#000;color:var(--red)}.tab.on .ic{color:var(--red)}
+.tabs{position:absolute;left:50%;transform:translateX(-50%);bottom:max(14px,calc(env(safe-area-inset-bottom) * .64));display:grid;grid-template-columns:90px 90px;padding:4px;z-index:20}
+.ind{position:absolute;top:4px;bottom:4px;left:4px;width:90px;border-radius:99px;background:#000;transition:transform .5s cubic-bezier(.3,1.25,.45,1)}
+.tabs[data-i="1"] .ind{transform:translateX(90px)}
+.tab{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 0 5px;font-size:12px;font-weight:600;transition:color .3s}
+.tab .ic{color:#fff;transition:color .3s}
+.tab.on,.tab.on .ic{color:var(--red)}
 body.notabs .tabs{display:none}
 
 /* forms, toggles */
@@ -84,18 +95,18 @@ body.notabs .tabs{display:none}
 .sw{width:51px;height:31px;border-radius:16px;background:var(--red);position:relative;flex:none;transition:background .2s}
 .sw::after{content:"";position:absolute;top:2px;right:2px;width:27px;height:27px;border-radius:50%;background:#fff;transition:transform .2s}
 .sw.off{background:#39393d}.sw.off::after{transform:translateX(-20px)}
-.det{background:var(--s);border-radius:28px;margin:10px 16px 0;padding:20px 16px 16px;text-align:center}
-.det h2{font-size:24px;font-weight:600}
-.det p{color:var(--dim);font-size:16px;margin:3px 0 14px}
+.det{background:var(--s);border-radius:28px;margin:26px 16px 0;padding:16px 16px 18px;text-align:center}
+.det h2{font-size:23px;line-height:28px;font-weight:600}
+.det p{color:var(--dim);font-size:16px;margin:2px 0 12px}
 .det hr{border:0;height:1px;background:var(--line);margin:0 4px}
-.qr{background:#fff;border-radius:14px;padding:9px;margin-top:16px}
+.qr{background:#fff;border-radius:14px;padding:9px;margin:18px auto 0;width:288px;max-width:100%}
 .qr canvas{display:block;width:100%;aspect-ratio:1;image-rendering:pixelated}
-.gap{margin-top:14px}
+.gap{margin-top:16px}
 .row.del,.row.del .ic{color:#f0403f}
 .row .chr{transform:rotate(180deg);color:#fff;width:20px;height:20px;stroke-width:2}
 
 /* login, modal, landscape */
-.login{align-items:center;justify-content:center;gap:28px}
+.login{align-items:center;justify-content:center;gap:28px;--c:#4a0d15}
 .login .logo{position:static;transform:scale(2.2);margin-bottom:60px}
 .login .btn.red{margin:0;width:calc(100% - 40px)}
 .pw{color:var(--dim);font-size:13px}
@@ -118,7 +129,7 @@ body.notabs .tabs{display:none}
 <symbol id="uadd" viewBox="0 0 24 24"><circle cx="9" cy="7.5" r="3.5"/><path d="M2.5 19v-.5A4.5 4.5 0 0 1 7 14h2.5"/><circle cx="17" cy="17" r="4.5" fill="currentColor"/><path d="M17 15v4M15 17h4" stroke="#1c1c1e"/></symbol>
 <symbol id="rot" viewBox="0 0 24 24"><rect x="5" y="8.5" width="13" height="9" rx="2"/><path d="M3.5 7A5.5 5.5 0 0 1 9 3.5l1.5.1M9.2 1.4l1.5 2.2-2.3 1.4M20.5 17a5.5 5.5 0 0 1-5.5 3.5l-1.5-.1M14.8 22.6l-1.5-2.2 2.3-1.4"/></symbol>
 <symbol id="doc" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></symbol>
-<symbol id="gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.6" stroke-width="2.6" stroke-dasharray="1.57 1.57"/><circle cx="12" cy="12" r="7.2"/><path d="M12 12l-5-3M12 12l5-3M12 12v6"/></symbol>
+<symbol id="gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.2" stroke-width="2.2" stroke-dasharray="1.5 2.06"/><circle cx="12" cy="12" r="8"/><path d="M12 12l-5.2-3.2M12 12l5.2-3.2M12 12v6.2"/></symbol>
 <symbol id="lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
 <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><ellipse cx="12" cy="12" rx="4" ry="9.5"/><path d="M2.5 12h19M4 7.5h16M4 16.5h16"/></symbol>
 <symbol id="info" viewBox="0 0 24 24"><path d="M12 10.5v8M12 5.5v.01" stroke-width="2"/></symbol>
@@ -142,19 +153,19 @@ body.notabs .tabs{display:none}
     <div class="car" id="car">
       <div class="slide"><div class="cw"><div class="card">
         <svg class="bg" viewBox="0 0 722 456" preserveAspectRatio="none"><path d="M355 0H722V120L655 182Q625 200 585 192Q560 188 545 172Z" fill="#fff" opacity=".055"/><path d="M0 165Q8 113 85 113H150Q185 113 210 138L350 285Q385 322 385 385V456H0Z" fill="#fff" opacity=".055"/></svg>
-        <div class="logo"><i>e</i><b>Boks</b></div><div class="type">E-Boks ID</div>
+        <div class="logo"><svg viewBox="0 0 100 100"><rect width="100" height="100" rx="21" fill="#fff"/><path fill="currentColor" fill-rule="evenodd" d="M34.5 21.8 32.8 22.9 29.9 25.4 26.9 28.5 25.5 30.4 24.6 32.3 24.6 32.6 24.3 33.5 24.2 35.1 24.1 35.2 24.1 64.7 24.2 64.8 24.2 65.8 24.3 65.9 24.3 66.4 24.4 66.5 24.5 67.3 25.2 69.0 26.0 70.3 27.4 72.0 30.4 75.0 32.5 76.8 34.1 77.9 35.7 78.7 38.2 79.5 39.2 79.6 39.3 79.7 39.9 79.7 40.0 79.8 41.0 79.8 41.1 79.9 59.3 79.9 59.4 79.8 60.3 79.8 60.4 79.7 61.0 79.7 61.1 79.6 61.6 79.6 61.7 79.5 62.9 79.3 64.6 78.7 66.4 77.8 68.3 76.4 70.6 74.2 72.2 72.4 73.9 70.2 74.9 68.7 75.3 67.8 75.2 67.2 74.7 66.7 67.0 63.9 66.2 63.9 65.7 64.1 65.3 64.5 64.3 65.9 62.3 68.0 60.8 69.2 59.9 69.7 59.3 69.9 58.9 69.9 58.8 70.0 41.9 70.0 41.8 69.9 41.4 69.9 40.1 69.3 39.5 68.9 37.7 67.4 35.8 65.4 35.0 64.1 34.8 63.5 34.8 63.1 34.7 63.0 34.7 55.8 34.8 55.5 35.6 54.8 74.4 54.8 75.3 54.5 75.7 53.9 75.7 53.5 75.8 53.4 75.8 35.6 75.7 35.5 75.7 34.2 75.6 34.1 75.6 33.6 75.5 33.5 75.4 32.7 74.5 30.6 73.4 29.0 72.2 27.6 69.6 25.0 67.4 23.1 65.8 22.0 64.2 21.2 61.7 20.4 60.7 20.3 60.6 20.2 60.0 20.2 59.9 20.1 58.8 20.1 58.7 20.0 41.2 20.0 41.1 20.1 39.4 20.2 39.3 20.3 38.8 20.3 38.7 20.4 37.5 20.6 36.0 21.1ZM34.8 36.5 35.3 35.3 36.1 34.2 38.8 31.6 40.3 30.5 41.2 30.1 42.0 30.0 42.1 29.9 57.9 29.9 58.0 30.0 58.4 30.0 59.8 30.6 61.4 31.8 62.5 32.8 64.0 34.4 64.9 35.8 65.1 36.4 65.1 36.8 65.2 36.9 65.2 44.5 64.7 45.2 63.9 45.5 36.0 45.5 35.9 45.4 35.6 45.4 34.8 44.7 34.7 44.4 34.7 37.1 34.8 37.0Z"/></svg><svg class="wm" viewBox="0 0 173.5 59.5"><path fill="currentColor" fill-rule="evenodd" d="M141.7 19.3 137.6 23.0 135.3 26.2 134.8 28.3 134.8 33.9 135.5 36.7 136.6 38.5 138.9 40.6 142.0 41.9 163.5 43.1 165.2 44.4 165.3 47.5 165.0 48.3 163.4 50.1 161.4 51.3 147.8 51.4 146.3 50.8 142.5 47.0 141.2 46.6 136.6 48.1 135.0 49.0 134.7 50.0 136.5 52.8 140.1 56.5 141.8 57.8 144.2 58.9 147.4 59.5 161.4 59.5 164.9 58.8 166.8 57.8 170.1 54.9 172.0 52.7 173.2 50.6 173.5 48.9 173.3 42.5 172.0 39.4 169.7 37.1 167.8 36.1 165.2 35.4 144.5 34.2 143.6 33.8 143.1 32.9 143.1 29.5 144.8 27.1 146.8 25.9 159.6 25.8 160.7 26.0 162.2 27.0 165.6 30.6 166.9 30.8 172.6 28.6 173.2 27.7 173.0 26.8 171.0 24.1 167.8 20.8 165.8 19.3 163.0 18.1 160.3 17.8 147.1 17.8 144.4 18.1ZM58.1 19.3 55.9 20.9 52.5 24.3 50.3 28.1 50.1 47.5 50.4 49.5 51.4 51.5 53.4 53.9 57.4 57.5 59.6 58.7 62.2 59.3 76.0 59.5 80.0 58.8 82.0 57.8 84.8 55.6 87.9 52.2 89.1 50.4 89.8 47.7 89.8 29.8 89.0 26.7 86.1 23.0 83.2 20.3 81.6 19.2 78.9 18.1 75.4 17.8 63.9 17.8 61.0 18.1ZM62.5 26.2 63.9 25.8 76.6 25.9 78.7 27.2 81.1 29.8 81.5 31.1 81.5 46.0 80.8 47.9 77.7 50.8 75.6 51.5 64.1 51.5 62.0 50.7 58.6 47.2 58.2 46.0 58.2 31.3 59.1 29.3ZM96.2 0.3 95.7 2.2 95.7 57.8 96.0 58.8 97.0 59.5 102.7 59.5 103.9 58.8 104.1 41.7 105.1 40.8 108.8 40.8 109.7 41.1 124.0 58.8 125.6 59.5 132.9 59.5 133.5 59.2 133.8 58.5 133.4 57.7 117.3 38.2 116.7 36.6 119.4 33.5 133.3 19.5 133.7 18.3 132.7 17.8 125.1 17.8 123.8 18.1 109.8 32.1 108.1 32.9 104.9 32.8 104.3 32.3 104.0 31.3 104.0 1.0 103.5 0.2 102.7 0.0 96.9 0.0ZM0.5 0.2 0.0 1.2 0.1 58.7 1.2 59.5 29.8 59.5 34.0 58.8 36.3 57.7 39.7 54.9 42.1 52.3 43.3 50.4 44.1 47.9 44.0 35.7 42.9 33.0 40.1 29.5 40.5 28.2 43.0 25.4 44.1 22.1 44.1 11.5 42.9 8.3 41.0 6.0 37.0 2.3 35.2 1.2 32.2 0.2ZM8.5 33.5 9.2 33.1 31.2 33.1 32.7 33.8 35.0 35.9 35.9 37.7 35.9 45.9 35.2 47.7 32.0 50.8 30.0 51.5 8.9 51.4 8.2 50.6 8.1 35.1ZM8.4 8.4 9.0 8.0 30.3 8.0 31.2 8.3 34.1 10.5 35.2 11.8 35.8 13.2 35.9 20.5 35.3 22.1 32.5 24.8 30.8 25.2 8.6 25.0 8.1 24.0 8.1 9.8Z"/></svg></div><div class="type">E-Boks ID</div>
         <div class="ph" onclick="pick()"><svg viewBox="0 0 24 24"><use href="#per"/></svg></div>
         <div class="who"><small>Name</small><span class="nm">Marcus Paul Smith</span></div>
       </div></div></div>
       <div class="slide"><div class="cw"><div class="card teal">
         <svg class="bg" viewBox="0 0 722 456" preserveAspectRatio="none"><path d="M355 0H722V120L655 182Q625 200 585 192Q560 188 545 172Z" fill="#fff" opacity=".06"/><path d="M0 165Q8 113 85 113H150Q185 113 210 138L350 285Q385 322 385 385V456H0Z" fill="#fff" opacity=".06"/></svg>
-        <div class="logo"><i>e</i><b>Boks</b></div><div class="type">Age credentials</div>
+        <div class="logo"><svg viewBox="0 0 100 100"><rect width="100" height="100" rx="21" fill="#fff"/><path fill="currentColor" fill-rule="evenodd" d="M34.5 21.8 32.8 22.9 29.9 25.4 26.9 28.5 25.5 30.4 24.6 32.3 24.6 32.6 24.3 33.5 24.2 35.1 24.1 35.2 24.1 64.7 24.2 64.8 24.2 65.8 24.3 65.9 24.3 66.4 24.4 66.5 24.5 67.3 25.2 69.0 26.0 70.3 27.4 72.0 30.4 75.0 32.5 76.8 34.1 77.9 35.7 78.7 38.2 79.5 39.2 79.6 39.3 79.7 39.9 79.7 40.0 79.8 41.0 79.8 41.1 79.9 59.3 79.9 59.4 79.8 60.3 79.8 60.4 79.7 61.0 79.7 61.1 79.6 61.6 79.6 61.7 79.5 62.9 79.3 64.6 78.7 66.4 77.8 68.3 76.4 70.6 74.2 72.2 72.4 73.9 70.2 74.9 68.7 75.3 67.8 75.2 67.2 74.7 66.7 67.0 63.9 66.2 63.9 65.7 64.1 65.3 64.5 64.3 65.9 62.3 68.0 60.8 69.2 59.9 69.7 59.3 69.9 58.9 69.9 58.8 70.0 41.9 70.0 41.8 69.9 41.4 69.9 40.1 69.3 39.5 68.9 37.7 67.4 35.8 65.4 35.0 64.1 34.8 63.5 34.8 63.1 34.7 63.0 34.7 55.8 34.8 55.5 35.6 54.8 74.4 54.8 75.3 54.5 75.7 53.9 75.7 53.5 75.8 53.4 75.8 35.6 75.7 35.5 75.7 34.2 75.6 34.1 75.6 33.6 75.5 33.5 75.4 32.7 74.5 30.6 73.4 29.0 72.2 27.6 69.6 25.0 67.4 23.1 65.8 22.0 64.2 21.2 61.7 20.4 60.7 20.3 60.6 20.2 60.0 20.2 59.9 20.1 58.8 20.1 58.7 20.0 41.2 20.0 41.1 20.1 39.4 20.2 39.3 20.3 38.8 20.3 38.7 20.4 37.5 20.6 36.0 21.1ZM34.8 36.5 35.3 35.3 36.1 34.2 38.8 31.6 40.3 30.5 41.2 30.1 42.0 30.0 42.1 29.9 57.9 29.9 58.0 30.0 58.4 30.0 59.8 30.6 61.4 31.8 62.5 32.8 64.0 34.4 64.9 35.8 65.1 36.4 65.1 36.8 65.2 36.9 65.2 44.5 64.7 45.2 63.9 45.5 36.0 45.5 35.9 45.4 35.6 45.4 34.8 44.7 34.7 44.4 34.7 37.1 34.8 37.0Z"/></svg><svg class="wm" viewBox="0 0 173.5 59.5"><path fill="currentColor" fill-rule="evenodd" d="M141.7 19.3 137.6 23.0 135.3 26.2 134.8 28.3 134.8 33.9 135.5 36.7 136.6 38.5 138.9 40.6 142.0 41.9 163.5 43.1 165.2 44.4 165.3 47.5 165.0 48.3 163.4 50.1 161.4 51.3 147.8 51.4 146.3 50.8 142.5 47.0 141.2 46.6 136.6 48.1 135.0 49.0 134.7 50.0 136.5 52.8 140.1 56.5 141.8 57.8 144.2 58.9 147.4 59.5 161.4 59.5 164.9 58.8 166.8 57.8 170.1 54.9 172.0 52.7 173.2 50.6 173.5 48.9 173.3 42.5 172.0 39.4 169.7 37.1 167.8 36.1 165.2 35.4 144.5 34.2 143.6 33.8 143.1 32.9 143.1 29.5 144.8 27.1 146.8 25.9 159.6 25.8 160.7 26.0 162.2 27.0 165.6 30.6 166.9 30.8 172.6 28.6 173.2 27.7 173.0 26.8 171.0 24.1 167.8 20.8 165.8 19.3 163.0 18.1 160.3 17.8 147.1 17.8 144.4 18.1ZM58.1 19.3 55.9 20.9 52.5 24.3 50.3 28.1 50.1 47.5 50.4 49.5 51.4 51.5 53.4 53.9 57.4 57.5 59.6 58.7 62.2 59.3 76.0 59.5 80.0 58.8 82.0 57.8 84.8 55.6 87.9 52.2 89.1 50.4 89.8 47.7 89.8 29.8 89.0 26.7 86.1 23.0 83.2 20.3 81.6 19.2 78.9 18.1 75.4 17.8 63.9 17.8 61.0 18.1ZM62.5 26.2 63.9 25.8 76.6 25.9 78.7 27.2 81.1 29.8 81.5 31.1 81.5 46.0 80.8 47.9 77.7 50.8 75.6 51.5 64.1 51.5 62.0 50.7 58.6 47.2 58.2 46.0 58.2 31.3 59.1 29.3ZM96.2 0.3 95.7 2.2 95.7 57.8 96.0 58.8 97.0 59.5 102.7 59.5 103.9 58.8 104.1 41.7 105.1 40.8 108.8 40.8 109.7 41.1 124.0 58.8 125.6 59.5 132.9 59.5 133.5 59.2 133.8 58.5 133.4 57.7 117.3 38.2 116.7 36.6 119.4 33.5 133.3 19.5 133.7 18.3 132.7 17.8 125.1 17.8 123.8 18.1 109.8 32.1 108.1 32.9 104.9 32.8 104.3 32.3 104.0 31.3 104.0 1.0 103.5 0.2 102.7 0.0 96.9 0.0ZM0.5 0.2 0.0 1.2 0.1 58.7 1.2 59.5 29.8 59.5 34.0 58.8 36.3 57.7 39.7 54.9 42.1 52.3 43.3 50.4 44.1 47.9 44.0 35.7 42.9 33.0 40.1 29.5 40.5 28.2 43.0 25.4 44.1 22.1 44.1 11.5 42.9 8.3 41.0 6.0 37.0 2.3 35.2 1.2 32.2 0.2ZM8.5 33.5 9.2 33.1 31.2 33.1 32.7 33.8 35.0 35.9 35.9 37.7 35.9 45.9 35.2 47.7 32.0 50.8 30.0 51.5 8.9 51.4 8.2 50.6 8.1 35.1ZM8.4 8.4 9.0 8.0 30.3 8.0 31.2 8.3 34.1 10.5 35.2 11.8 35.8 13.2 35.9 20.5 35.3 22.1 32.5 24.8 30.8 25.2 8.6 25.0 8.1 24.0 8.1 9.8Z"/></svg></div><div class="type">Age credentials</div>
         <div class="ph" onclick="pick()"><svg viewBox="0 0 24 24"><use href="#per"/></svg></div>
         <div class="age">18+</div>
       </div></div></div>
     </div>
     <div class="dots"><i class="on"></i><i></i></div>
-    <div class="list">
+    <div class="list pad">
       <button class="row" onclick="pick()"><svg class="ic"><use href="#uadd"/></svg><span>Add passport photo</span></button>
       <button class="row" onclick="landscape()"><svg class="ic"><use href="#rot"/></svg><span>Landscape mode</span></button>
       <button class="row" onclick="go('share')"><svg class="ic"><use href="#scan"/></svg><span>Share your information</span></button>
@@ -167,7 +178,7 @@ body.notabs .tabs{display:none}
   <div class="top"><button class="back" onclick="go('home')"><svg class="ic"><use href="#chev"/></svg></button><span class="h">Details</span><span style="width:44px"></span></div>
   <div class="scroll">
     <div class="det"><h2 class="nm">Marcus Paul Smith</h2><p>e-Boks ID</p><hr>
-      <div class="qr"><canvas id="qr" width="630" height="630"></canvas></div></div>
+      <div class="qr"><canvas id="qr" width="616" height="616"></canvas></div></div>
     <div class="list gap"><button class="row" onclick="go('choose')"><span>Choose what to share</span><svg class="ic chr"><use href="#chev"/></svg></button></div>
     <div class="list gap"><button class="row del" onclick="ask('ID')"><span>Delete ID</span><svg class="ic"><use href="#trash"/></svg></button></div>
   </div>
@@ -180,7 +191,7 @@ body.notabs .tabs{display:none}
 
 <!-- LOGIN -->
 <section class="screen login" id="s-login">
-  <div class="logo"><i>e</i><b>Boks</b></div>
+  <div class="logo"><svg viewBox="0 0 100 100"><rect width="100" height="100" rx="21" fill="#fff"/><path fill="currentColor" fill-rule="evenodd" d="M34.5 21.8 32.8 22.9 29.9 25.4 26.9 28.5 25.5 30.4 24.6 32.3 24.6 32.6 24.3 33.5 24.2 35.1 24.1 35.2 24.1 64.7 24.2 64.8 24.2 65.8 24.3 65.9 24.3 66.4 24.4 66.5 24.5 67.3 25.2 69.0 26.0 70.3 27.4 72.0 30.4 75.0 32.5 76.8 34.1 77.9 35.7 78.7 38.2 79.5 39.2 79.6 39.3 79.7 39.9 79.7 40.0 79.8 41.0 79.8 41.1 79.9 59.3 79.9 59.4 79.8 60.3 79.8 60.4 79.7 61.0 79.7 61.1 79.6 61.6 79.6 61.7 79.5 62.9 79.3 64.6 78.7 66.4 77.8 68.3 76.4 70.6 74.2 72.2 72.4 73.9 70.2 74.9 68.7 75.3 67.8 75.2 67.2 74.7 66.7 67.0 63.9 66.2 63.9 65.7 64.1 65.3 64.5 64.3 65.9 62.3 68.0 60.8 69.2 59.9 69.7 59.3 69.9 58.9 69.9 58.8 70.0 41.9 70.0 41.8 69.9 41.4 69.9 40.1 69.3 39.5 68.9 37.7 67.4 35.8 65.4 35.0 64.1 34.8 63.5 34.8 63.1 34.7 63.0 34.7 55.8 34.8 55.5 35.6 54.8 74.4 54.8 75.3 54.5 75.7 53.9 75.7 53.5 75.8 53.4 75.8 35.6 75.7 35.5 75.7 34.2 75.6 34.1 75.6 33.6 75.5 33.5 75.4 32.7 74.5 30.6 73.4 29.0 72.2 27.6 69.6 25.0 67.4 23.1 65.8 22.0 64.2 21.2 61.7 20.4 60.7 20.3 60.6 20.2 60.0 20.2 59.9 20.1 58.8 20.1 58.7 20.0 41.2 20.0 41.1 20.1 39.4 20.2 39.3 20.3 38.8 20.3 38.7 20.4 37.5 20.6 36.0 21.1ZM34.8 36.5 35.3 35.3 36.1 34.2 38.8 31.6 40.3 30.5 41.2 30.1 42.0 30.0 42.1 29.9 57.9 29.9 58.0 30.0 58.4 30.0 59.8 30.6 61.4 31.8 62.5 32.8 64.0 34.4 64.9 35.8 65.1 36.4 65.1 36.8 65.2 36.9 65.2 44.5 64.7 45.2 63.9 45.5 36.0 45.5 35.9 45.4 35.6 45.4 34.8 44.7 34.7 44.4 34.7 37.1 34.8 37.0Z"/></svg><svg class="wm" viewBox="0 0 173.5 59.5"><path fill="currentColor" fill-rule="evenodd" d="M141.7 19.3 137.6 23.0 135.3 26.2 134.8 28.3 134.8 33.9 135.5 36.7 136.6 38.5 138.9 40.6 142.0 41.9 163.5 43.1 165.2 44.4 165.3 47.5 165.0 48.3 163.4 50.1 161.4 51.3 147.8 51.4 146.3 50.8 142.5 47.0 141.2 46.6 136.6 48.1 135.0 49.0 134.7 50.0 136.5 52.8 140.1 56.5 141.8 57.8 144.2 58.9 147.4 59.5 161.4 59.5 164.9 58.8 166.8 57.8 170.1 54.9 172.0 52.7 173.2 50.6 173.5 48.9 173.3 42.5 172.0 39.4 169.7 37.1 167.8 36.1 165.2 35.4 144.5 34.2 143.6 33.8 143.1 32.9 143.1 29.5 144.8 27.1 146.8 25.9 159.6 25.8 160.7 26.0 162.2 27.0 165.6 30.6 166.9 30.8 172.6 28.6 173.2 27.7 173.0 26.8 171.0 24.1 167.8 20.8 165.8 19.3 163.0 18.1 160.3 17.8 147.1 17.8 144.4 18.1ZM58.1 19.3 55.9 20.9 52.5 24.3 50.3 28.1 50.1 47.5 50.4 49.5 51.4 51.5 53.4 53.9 57.4 57.5 59.6 58.7 62.2 59.3 76.0 59.5 80.0 58.8 82.0 57.8 84.8 55.6 87.9 52.2 89.1 50.4 89.8 47.7 89.8 29.8 89.0 26.7 86.1 23.0 83.2 20.3 81.6 19.2 78.9 18.1 75.4 17.8 63.9 17.8 61.0 18.1ZM62.5 26.2 63.9 25.8 76.6 25.9 78.7 27.2 81.1 29.8 81.5 31.1 81.5 46.0 80.8 47.9 77.7 50.8 75.6 51.5 64.1 51.5 62.0 50.7 58.6 47.2 58.2 46.0 58.2 31.3 59.1 29.3ZM96.2 0.3 95.7 2.2 95.7 57.8 96.0 58.8 97.0 59.5 102.7 59.5 103.9 58.8 104.1 41.7 105.1 40.8 108.8 40.8 109.7 41.1 124.0 58.8 125.6 59.5 132.9 59.5 133.5 59.2 133.8 58.5 133.4 57.7 117.3 38.2 116.7 36.6 119.4 33.5 133.3 19.5 133.7 18.3 132.7 17.8 125.1 17.8 123.8 18.1 109.8 32.1 108.1 32.9 104.9 32.8 104.3 32.3 104.0 31.3 104.0 1.0 103.5 0.2 102.7 0.0 96.9 0.0ZM0.5 0.2 0.0 1.2 0.1 58.7 1.2 59.5 29.8 59.5 34.0 58.8 36.3 57.7 39.7 54.9 42.1 52.3 43.3 50.4 44.1 47.9 44.0 35.7 42.9 33.0 40.1 29.5 40.5 28.2 43.0 25.4 44.1 22.1 44.1 11.5 42.9 8.3 41.0 6.0 37.0 2.3 35.2 1.2 32.2 0.2ZM8.5 33.5 9.2 33.1 31.2 33.1 32.7 33.8 35.0 35.9 35.9 37.7 35.9 45.9 35.2 47.7 32.0 50.8 30.0 51.5 8.9 51.4 8.2 50.6 8.1 35.1ZM8.4 8.4 9.0 8.0 30.3 8.0 31.2 8.3 34.1 10.5 35.2 11.8 35.8 13.2 35.9 20.5 35.3 22.1 32.5 24.8 30.8 25.2 8.6 25.0 8.1 24.0 8.1 9.8Z"/></svg></div>
   <button class="btn red" onclick="go('home')">Log in</button>
   <div class="pw">Powered by dewa</div>
 </section>
@@ -240,7 +251,7 @@ body.notabs .tabs{display:none}
 </section>
 
 <!-- TAB BAR -->
-<nav class="tabs pill">
+<nav class="tabs pill" data-i="0"><i class="ind"></i>
   <button class="tab on" data-t="home" onclick="go('home')"><svg class="ic"><use href="#doc"/></svg>Home</button>
   <button class="tab" data-t="settings" onclick="go('settings')"><svg class="ic"><use href="#gear"/></svg>Settings</button>
 </nav>
@@ -259,13 +270,21 @@ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const GROUP={home:'home',share:'home',choose:'home',settings:'settings',security:'settings',language:'settings',about:'settings',activity:'settings',help:'settings'};
 let qt;
 function ask(w){$('#dt').textContent='Delete '+w;$('#dp').textContent='Are you sure you want to delete your '+w+'? This can\'t be undone.';$('#del').classList.add('on')}
+const DEPTH={home:0,settings:0,login:0,share:1,security:1,language:1,about:1,activity:1,help:1,choose:2};
 function go(id){
-  $$('.screen').forEach(s=>s.classList.toggle('on',s.id==='s-'+id));
+  const prev=$('.screen.on'),pd=prev?DEPTH[prev.id.slice(2)]:0,d=DEPTH[id];
+  const dir=d>pd?'fwd':d<pd?'back':'fade';
+  $$('.screen').forEach(s=>s.classList.remove('on','fwd','back','fade'));
+  $('#s-'+id).classList.add('on',dir);
   document.body.classList.toggle('notabs',!GROUP[id]);
+  $('.tabs').dataset.i=GROUP[id]==='settings'?1:0;
   $$('.tab').forEach(t=>t.classList.toggle('on',t.dataset.t===GROUP[id]));
   clearInterval(qt);
-  if(id==='share'){drawQr();qt=setInterval(drawQr,1000)}
+  if(id==='share'){drawQr();qt=setInterval(drawQr,240)}
 }
+// home-screen mode: make the app as tall as the whole screen
+const fit=()=>{if(navigator.standalone)$('.app').style.height=Math.max(innerHeight,screen.height)+'px'};
+fit();addEventListener('resize',fit);
 // carousel dots
 const car=$('#car');
 car.addEventListener('scroll',()=>{const i=Math.round(car.scrollLeft/car.clientWidth);$$('.dots i').forEach((d,n)=>d.classList.toggle('on',n===i))},{passive:true});
@@ -291,16 +310,23 @@ $('#tg').innerHTML=['User ID','Birthday','Name','Over 15','Over 16','Over 18'].m
 // language
 $('#langs').innerHTML=['English','Dansk','Deutsch','Svenska','Norsk'].map((l,i)=>`<button class="row" onclick="$$('#langs .ok').forEach(o=>o.style.visibility='hidden');this.querySelector('.ok').style.visibility='visible'"><span>${l}</span><svg class="ic ok" style="visibility:${i?'hidden':'visible'}"><use href="#ok"/></svg></button>`).join('');
 // QR (decorative, refreshes like a live code)
-function drawQr(){
-  const c=$('#qr'),x=c.getContext('2d'),N=105,u=c.width/N,F=[[0,0],[0,N-7],[N-7,0]];
-  x.fillStyle='#fff';x.fillRect(0,0,c.width,c.width);x.fillStyle='#000';
-  for(let r=0;r<N;r++)for(let k=0;k<N;k++){
-    const f=F.find(([a,b])=>r>=a&&r<a+7&&k>=b&&k<b+7);let on;
-    if(f){const i=r-f[0],j=k-f[1];on=i%6===0||j%6===0||(i>1&&i<5&&j>1&&j<5)}
-    else if((r<8&&(k<8||k>=N-8))||(r>=N-8&&k<8))on=false;
-    else on=Math.random()>.5;
-    if(on)x.fillRect(k*u,r*u,u,u);
+const QN=77,QF=(()=>{const m=new Int8Array(QN*QN).fill(-1),P=[[0,0],[0,QN-7],[QN-7,0]];
+  for(let r=0;r<QN;r++)for(let k=0;k<QN;k++){
+    const f=P.find(([a,b])=>r>=a&&r<a+7&&k>=b&&k<b+7);
+    if(f){const i=r-f[0],j=k-f[1];m[r*QN+k]=(i%6===0||j%6===0||(i>1&&i<5&&j>1&&j<5))?1:0}
+    else if((r<8&&(k<8||k>=QN-8))||(r>=QN-8&&k<8))m[r*QN+k]=0;
   }
+  for(let i=8;i<QN-8;i++){m[6*QN+i]=m[i*QN+6]=i%2===0?1:0}            // dotted timing lines
+  const A=[6,26,48,70];                                              // small square markers
+  for(const a of A)for(const b of A){
+    if((a===6&&b===6)||(a===6&&b===70)||(a===70&&b===6))continue;
+    for(let i=-2;i<=2;i++)for(let j=-2;j<=2;j++)m[(a+i)*QN+b+j]=(Math.max(Math.abs(i),Math.abs(j))!==1)?1:0;
+  }
+  return m})();
+function drawQr(){
+  const c=$('#qr'),x=c.getContext('2d'),u=c.width/QN,P=new Path2D();
+  for(let r=0;r<QN;r++)for(let k=0;k<QN;k++){const v=QF[r*QN+k];if(v===1||(v<0&&Math.random()>.5))P.rect(k*u,r*u,u,u)}
+  x.fillStyle='#fff';x.fillRect(0,0,c.width,c.width);x.fillStyle='#000';x.fill(P);
 }
 </script>
 </body>
