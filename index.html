@@ -24,8 +24,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .ic{width:24px;height:24px;color:var(--red);stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .acts{display:flex;gap:2px;padding:3px 6px}
 .acts button{padding:4px}.acts .ic{width:28px;height:28px;stroke-width:1.6}
-.back{display:flex;align-items:center;width:44px;height:44px;justify-content:center;padding:0}
-.back .ic{width:24px;height:24px;stroke-width:2.2}
+.back{display:flex;align-items:center;width:44px;height:44px;justify-content:center;padding:0;background:var(--s);border:1px solid rgba(255,255,255,.09);border-radius:50%}
+.back .ic{width:22px;height:22px;stroke-width:2.2;color:#fff}
 .h{font-size:17px;font-weight:600}
 .signout{color:var(--red);font-size:17px;padding:10px 20px}
 
@@ -66,7 +66,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .ver{text-align:center;color:#2c4152;font-size:16px;margin-top:56px}
 
 /* tab bar */
-.tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:max(10px,calc(env(safe-area-inset-bottom) - 12px));display:flex;padding:5px;gap:2px;z-index:20}
+.tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:max(8px,calc(env(safe-area-inset-bottom) * .4));display:flex;padding:5px;gap:2px;z-index:20}
 .tab{display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 26px 6px;border-radius:99px;font-size:11.5px;font-weight:600}
 .tab .ic{color:#fff}
 .tab.on{background:#000;color:var(--red)}.tab.on .ic{color:var(--red)}
@@ -84,8 +84,15 @@ body.notabs .tabs{display:none}
 .sw{width:51px;height:31px;border-radius:16px;background:var(--red);position:relative;flex:none;transition:background .2s}
 .sw::after{content:"";position:absolute;top:2px;right:2px;width:27px;height:27px;border-radius:50%;background:#fff;transition:transform .2s}
 .sw.off{background:#39393d}.sw.off::after{transform:translateX(-20px)}
-.qr{background:#fff;border-radius:28px;margin:6px 16px 16px;padding:20px;display:grid;place-items:center}
-.qr canvas{width:100%;max-width:300px;aspect-ratio:1;image-rendering:pixelated}
+.det{background:var(--s);border-radius:28px;margin:10px 16px 0;padding:20px 16px 16px;text-align:center}
+.det h2{font-size:24px;font-weight:600}
+.det p{color:var(--dim);font-size:16px;margin:3px 0 14px}
+.det hr{border:0;height:1px;background:var(--line);margin:0 4px}
+.qr{background:#fff;border-radius:14px;padding:9px;margin-top:16px}
+.qr canvas{display:block;width:100%;aspect-ratio:1;image-rendering:pixelated}
+.gap{margin-top:14px}
+.row.del,.row.del .ic{color:#f0403f}
+.row .chr{transform:rotate(180deg);color:#fff;width:20px;height:20px;stroke-width:2}
 
 /* login, modal, landscape */
 .login{align-items:center;justify-content:center;gap:28px}
@@ -119,6 +126,7 @@ body.notabs .tabs{display:none}
 <symbol id="help" viewBox="0 0 24 24"><path d="M9.3 9a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.3-2.7 4.3M12 18.5v.01" stroke-width="2"/></symbol>
 <symbol id="chev" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
 <symbol id="ok" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+<symbol id="trash" viewBox="0 0 24 24"><path d="M4 6.5h16M9.5 6.5V4h5v2.5M6 6.5l1 13.5h10l1-13.5M10 10.5v6M14 10.5v6"/></symbol>
 <symbol id="per" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.5"/><path d="M4 20v-1.5C4 16 6 14.5 8 14c1.2-.3 2.4.3 4 .3s2.8-.6 4-.3c2 .5 4 2 4 4.5V20z"/></symbol>
 </defs></svg>
 
@@ -154,13 +162,20 @@ body.notabs .tabs{display:none}
   </div>
 </section>
 
-<!-- SHARE -->
+<!-- DETAILS -->
 <section class="screen" id="s-share">
-  <div class="top"><button class="back" onclick="go('home')"><svg class="ic"><use href="#chev"/></svg></button><span class="h">Share your information</span><span style="width:44px"></span></div>
-  <div class="scroll" style="padding-top:12px">
-    <div class="qr"><canvas id="qr" width="370" height="370"></canvas></div>
-    <div class="list" id="tg"></div>
+  <div class="top"><button class="back" onclick="go('home')"><svg class="ic"><use href="#chev"/></svg></button><span class="h">Details</span><span style="width:44px"></span></div>
+  <div class="scroll">
+    <div class="det"><h2 class="nm">Marcus Paul Smith</h2><p>e-Boks ID</p><hr>
+      <div class="qr"><canvas id="qr" width="630" height="630"></canvas></div></div>
+    <div class="list gap"><button class="row" onclick="go('choose')"><span>Choose what to share</span><svg class="ic chr"><use href="#chev"/></svg></button></div>
+    <div class="list gap"><button class="row del" onclick="ask('ID')"><span>Delete ID</span><svg class="ic"><use href="#trash"/></svg></button></div>
   </div>
+</section>
+
+<section class="screen" id="s-choose">
+  <div class="top"><button class="back" onclick="go('share')"><svg class="ic"><use href="#chev"/></svg></button><span class="h">Choose what to share</span><span style="width:44px"></span></div>
+  <div class="scroll" style="padding-top:10px"><div class="list" id="tg"></div></div>
 </section>
 
 <!-- LOGIN -->
@@ -182,7 +197,7 @@ body.notabs .tabs{display:none}
       <button class="row" onclick="go('activity')"><svg class="ic"><use href="#hist"/></svg><span>Activity</span></button>
       <button class="row" onclick="go('help')"><svg class="ic"><use href="#help"/></svg><span>Help</span></button>
     </div>
-    <button class="btn" onclick="$('#del').classList.add('on')">Delete e-Wallet</button>
+    <button class="btn" onclick="ask('e-Wallet')">Delete e-Wallet</button>
     <div class="ver">1.10.22 (127)</div>
   </div>
 </section>
@@ -232,7 +247,7 @@ body.notabs .tabs{display:none}
 </div>
 
 <div class="modal" id="del"><div>
-  <h3>Delete e-Wallet</h3><p>Are you sure you want to delete your e-Wallet? This can't be undone.</p>
+  <h3 id="dt">Delete e-Wallet</h3><p id="dp">Are you sure you want to delete your e-Wallet? This can't be undone.</p>
   <span class="g"><button onclick="$('#del').classList.remove('on')">Cancel</button><button class="d" onclick="$('#del').classList.remove('on');go('login')">Delete</button></span>
 </div></div>
 
@@ -241,8 +256,9 @@ body.notabs .tabs{display:none}
 
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const GROUP={home:'home',settings:'settings',security:'settings',language:'settings',about:'settings',activity:'settings',help:'settings'};
+const GROUP={home:'home',share:'home',choose:'home',settings:'settings',security:'settings',language:'settings',about:'settings',activity:'settings',help:'settings'};
 let qt;
+function ask(w){$('#dt').textContent='Delete '+w;$('#dp').textContent='Are you sure you want to delete your '+w+'? This can\'t be undone.';$('#del').classList.add('on')}
 function go(id){
   $$('.screen').forEach(s=>s.classList.toggle('on',s.id==='s-'+id));
   document.body.classList.toggle('notabs',!GROUP[id]);
@@ -276,14 +292,14 @@ $('#tg').innerHTML=['User ID','Birthday','Name','Over 15','Over 16','Over 18'].m
 $('#langs').innerHTML=['English','Dansk','Deutsch','Svenska','Norsk'].map((l,i)=>`<button class="row" onclick="$$('#langs .ok').forEach(o=>o.style.visibility='hidden');this.querySelector('.ok').style.visibility='visible'"><span>${l}</span><svg class="ic ok" style="visibility:${i?'hidden':'visible'}"><use href="#ok"/></svg></button>`).join('');
 // QR (decorative, refreshes like a live code)
 function drawQr(){
-  const c=$('#qr'),x=c.getContext('2d'),N=37,u=c.width/N,F=[[0,0],[0,N-7],[N-7,0]];
+  const c=$('#qr'),x=c.getContext('2d'),N=105,u=c.width/N,F=[[0,0],[0,N-7],[N-7,0]];
   x.fillStyle='#fff';x.fillRect(0,0,c.width,c.width);x.fillStyle='#000';
   for(let r=0;r<N;r++)for(let k=0;k<N;k++){
     const f=F.find(([a,b])=>r>=a&&r<a+7&&k>=b&&k<b+7);let on;
     if(f){const i=r-f[0],j=k-f[1];on=i%6===0||j%6===0||(i>1&&i<5&&j>1&&j<5)}
     else if((r<8&&(k<8||k>=N-8))||(r>=N-8&&k<8))on=false;
     else on=Math.random()>.5;
-    if(on)x.fillRect(k*u,r*u,u+.5,u+.5);
+    if(on)x.fillRect(k*u,r*u,u,u);
   }
 }
 </script>
