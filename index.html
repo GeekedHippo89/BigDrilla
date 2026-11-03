@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json">
+<title>e-Boks ID</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--red:#b01c2e;--s:#1c1c1e;--line:#38383a;--dim:#8e8e93}
+html,body{height:100%;background:#000;color:#fff;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.app{position:fixed;inset:0;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
+.screen{display:none;flex:1;min-height:0;flex-direction:column}
+.screen.on{display:flex}
+.scroll{flex:1;overflow-y:auto;padding-bottom:112px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.top{display:flex;align-items:center;justify-content:space-between;padding:8px 16px 0;min-height:56px;flex:none}
+.pill{background:var(--s);border-radius:99px;border:1px solid rgba(255,255,255,.09);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 4px 14px rgba(0,0,0,.5)}
+.title{font-size:32px;font-weight:700;letter-spacing:-.3px;padding:6px 16px 12px}
+.ic{width:24px;height:24px;color:var(--red);stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.acts{display:flex;gap:2px;padding:3px 6px}
+.acts button{padding:4px}.acts .ic{width:28px;height:28px;stroke-width:1.6}
+.back{display:flex;align-items:center;width:44px;height:44px;justify-content:center;padding:0}
+.back .ic{width:24px;height:24px;stroke-width:2.2}
+.h{font-size:17px;font-weight:600}
+.signout{color:var(--red);font-size:17px;padding:10px 20px}
+
+/* cards */
+.car{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-top:14px}
+.car::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:center;padding:0 4%}
+.cw{container-type:inline-size}
+.card{position:relative;overflow:hidden;aspect-ratio:722/456;border-radius:3.9cqw;color:#fff;background:linear-gradient(135deg,#3a0a11 0%,#74121f 36%,#a01828 72%,#bb1f31 100%);--c:#a01828}
+.card.teal{background:linear-gradient(135deg,#04262e 0%,#27444f 38%,#42606c 100%);--c:#27444f}
+.card svg.bg{position:absolute;inset:0;width:100%;height:100%}
+.card::after{content:"";position:absolute;top:-15%;left:0;width:42%;height:130%;pointer-events:none;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.04) 18%,rgba(255,255,255,.22) 50%,rgba(255,255,255,.04) 82%,transparent 100%);animation:shine 2.4s ease-in-out infinite}
+@keyframes shine{0%{transform:translateX(-230%) skewX(-18deg);opacity:0}5%{opacity:1}30%{transform:translateX(290%) skewX(-18deg);opacity:0}100%{transform:translateX(290%) skewX(-18deg);opacity:0}}
+@media (prefers-reduced-motion:reduce){.card::after{animation:none}}
+.logo{position:absolute;left:5.5cqw;top:4.4cqw;display:flex;align-items:center;gap:1.5cqw}
+.logo i{width:6.7cqw;height:6.7cqw;background:#fff;border-radius:1.5cqw;display:grid;place-items:center;font:800 5.6cqw/1 "Helvetica Neue",Arial,sans-serif;font-style:normal;color:var(--c);padding-bottom:.4cqw}
+.logo b{font-size:7.3cqw;font-weight:500;letter-spacing:-.04em}
+.type{position:absolute;right:5.5cqw;top:5.6cqw;font-size:3.7cqw;text-transform:uppercase}
+.ph{position:absolute;left:5.5cqw;top:20cqw;width:29.9cqw;height:38.8cqw;border-radius:2.2cqw;overflow:hidden;background:rgba(255,255,255,.13);border:.3cqw solid rgba(255,255,255,.2);display:grid;place-items:center;cursor:pointer}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph svg{width:55%;stroke:rgba(255,255,255,.35);fill:none;stroke-width:1.1;stroke-linejoin:round}
+.who{position:absolute;left:41cqw;bottom:4.8cqw}
+.who small{display:block;font-size:3.4cqw;opacity:.9;margin-bottom:.6cqw}
+.who span{font-size:4.5cqw;font-weight:500}
+.age{position:absolute;left:67.5cqw;top:39.5cqw;transform:translate(-50%,-50%);font-size:19.5cqw;font-weight:300;line-height:1}
+.dots{display:flex;justify-content:center;gap:10px;margin:18px 0}
+.dots i{width:8px;height:8px;border-radius:50%;background:#48484a}.dots i.on{background:#8e8e93}
+
+/* lists */
+.list{background:var(--s);border-radius:24px;margin:0 16px;overflow:hidden}
+.row{display:flex;align-items:center;gap:16px;width:100%;text-align:left;padding:0 18px;min-height:54px;font-size:17px;position:relative}
+.row+.row::before{content:"";position:absolute;top:0;left:58px;right:0;height:1px;background:var(--line)}
+.row span{flex:1}
+.row .ok{width:22px;height:22px;stroke-width:2.4}
+.sub{color:var(--dim);font-size:15px;padding:4px 22px 18px}
+.btn{display:block;margin:22px auto 0;background:#dde1e5;color:#1e3340;font-weight:700;font-size:17px;border-radius:99px;padding:14px 34px}
+.btn.red{background:var(--red);color:#fff;width:calc(100% - 32px);margin:26px 16px 0;padding:17px;font-size:18px}
+.ver{text-align:center;color:#2c4152;font-size:16px;margin-top:56px}
+
+/* tab bar */
+.tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:max(10px,calc(env(safe-area-inset-bottom) - 12px));display:flex;padding:5px;gap:2px;z-index:20}
+.tab{display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 26px 6px;border-radius:99px;font-size:11.5px;font-weight:600}
+.tab .ic{color:#fff}
+.tab.on{background:#000;color:var(--red)}.tab.on .ic{color:var(--red)}
+body.notabs .tabs{display:none}
+
+/* forms, toggles */
+.form{padding:0 16px}
+.form label{display:block;color:var(--dim);font-size:14px;margin:20px 6px 8px}
+.form input{width:100%;background:var(--s);border:0;border-radius:18px;padding:17px 18px;color:#fff;font:inherit;font-size:18px;outline:none}
+.form input:focus{box-shadow:0 0 0 1.5px var(--red)}
+.avatar{position:relative;width:114px;height:148px;margin:6px auto 0;display:block}
+.avatar .ph{left:0;top:0;width:100%;height:100%;border-radius:12px}
+.avatar .ph svg{width:55%}
+.hint{text-align:center;color:var(--dim);font-size:14px;margin-top:10px}
+.sw{width:51px;height:31px;border-radius:16px;background:var(--red);position:relative;flex:none;transition:background .2s}
+.sw::after{content:"";position:absolute;top:2px;right:2px;width:27px;height:27px;border-radius:50%;background:#fff;transition:transform .2s}
+.sw.off{background:#39393d}.sw.off::after{transform:translateX(-20px)}
+.qr{background:#fff;border-radius:28px;margin:6px 16px 16px;padding:20px;display:grid;place-items:center}
+.qr canvas{width:100%;max-width:300px;aspect-ratio:1;image-rendering:pixelated}
+
+/* login, modal, landscape */
+.login{align-items:center;justify-content:center;gap:28px}
+.login .logo{position:static;transform:scale(2.2);margin-bottom:60px}
+.login .btn.red{margin:0;width:calc(100% - 40px)}
+.pw{color:var(--dim);font-size:13px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:50;padding:24px;backdrop-filter:blur(6px)}
+.modal.on{display:flex}
+.modal div{background:var(--s);border-radius:28px;padding:28px 24px 22px;max-width:340px;width:100%;text-align:center}
+.modal h3{font-size:20px;margin-bottom:10px}.modal p{color:var(--dim);line-height:1.45;margin-bottom:22px}
+.modal .g{display:flex;gap:10px}.modal button{flex:1;padding:15px;border-radius:99px;background:#2c2c2e;font-weight:600;font-size:16px}
+.modal button.d{background:var(--red)}
+#land{position:fixed;inset:0;z-index:99;background:#000;display:none}
+#land.on{display:block}
+#lc{position:absolute;top:50%;left:50%;width:min(calc(100vh - 56px),620px);transform:translate(-50%,-50%) rotate(90deg)}
+#lx{position:absolute;top:calc(14px + env(safe-area-inset-top));right:16px;width:42px;height:42px;border-radius:50%;background:var(--s);font-size:20px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="plus" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 7v10M7 12h10"/></symbol>
+<symbol id="scan" viewBox="0 0 24 24"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/><rect x="7.5" y="7.5" width="3.5" height="3.5" rx=".6"/><rect x="13" y="7.5" width="3.5" height="3.5" rx=".6"/><rect x="7.5" y="13" width="3.5" height="3.5" rx=".6"/><path d="M13.5 13.5h1M16 13.5v1M13.5 16h1M16 16h.5"/></symbol>
+<symbol id="uadd" viewBox="0 0 24 24"><circle cx="9" cy="7.5" r="3.5"/><path d="M2.5 19v-.5A4.5 4.5 0 0 1 7 14h2.5"/><circle cx="17" cy="17" r="4.5" fill="currentColor"/><path d="M17 15v4M15 17h4" stroke="#1c1c1e"/></symbol>
+<symbol id="rot" viewBox="0 0 24 24"><rect x="5" y="8.5" width="13" height="9" rx="2"/><path d="M3.5 7A5.5 5.5 0 0 1 9 3.5l1.5.1M9.2 1.4l1.5 2.2-2.3 1.4M20.5 17a5.5 5.5 0 0 1-5.5 3.5l-1.5-.1M14.8 22.6l-1.5-2.2 2.3-1.4"/></symbol>
+<symbol id="doc" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></symbol>
+<symbol id="gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.6" stroke-width="2.6" stroke-dasharray="1.57 1.57"/><circle cx="12" cy="12" r="7.2"/><path d="M12 12l-5-3M12 12l5-3M12 12v6"/></symbol>
+<symbol id="lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+<symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><ellipse cx="12" cy="12" rx="4" ry="9.5"/><path d="M2.5 12h19M4 7.5h16M4 16.5h16"/></symbol>
+<symbol id="info" viewBox="0 0 24 24"><path d="M12 10.5v8M12 5.5v.01" stroke-width="2"/></symbol>
+<symbol id="hist" viewBox="0 0 24 24"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6L3.5 8.5M3.5 3.5v5h5M12 7.5V12l3 2"/></symbol>
+<symbol id="help" viewBox="0 0 24 24"><path d="M9.3 9a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.3-2.7 4.3M12 18.5v.01" stroke-width="2"/></symbol>
+<symbol id="chev" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+<symbol id="ok" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+<symbol id="per" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.5"/><path d="M4 20v-1.5C4 16 6 14.5 8 14c1.2-.3 2.4.3 4 .3s2.8-.6 4-.3c2 .5 4 2 4 4.5V20z"/></symbol>
+</defs></svg>
+
+<div class="app">
+
+<!-- HOME -->
+<section class="screen on" id="s-home">
+  <div class="top"><span></span>
+    <div class="pill acts"><button onclick="alert('Add a new card — coming soon')" aria-label="Add"><svg class="ic"><use href="#plus"/></svg></button><button onclick="go('share')" aria-label="Scan"><svg class="ic"><use href="#scan"/></svg></button></div>
+  </div>
+  <div class="scroll">
+    <h1 class="title">Home</h1>
+    <div class="car" id="car">
+      <div class="slide"><div class="cw"><div class="card">
+        <svg class="bg" viewBox="0 0 722 456" preserveAspectRatio="none"><path d="M355 0H722V120L655 182Q625 200 585 192Q560 188 545 172Z" fill="#fff" opacity=".055"/><path d="M0 165Q8 113 85 113H150Q185 113 210 138L350 285Q385 322 385 385V456H0Z" fill="#fff" opacity=".055"/></svg>
+        <div class="logo"><i>e</i><b>Boks</b></div><div class="type">E-Boks ID</div>
+        <div class="ph" onclick="pick()"><svg viewBox="0 0 24 24"><use href="#per"/></svg></div>
+        <div class="who"><small>Name</small><span class="nm">Marcus Paul Smith</span></div>
+      </div></div></div>
+      <div class="slide"><div class="cw"><div class="card teal">
+        <svg class="bg" viewBox="0 0 722 456" preserveAspectRatio="none"><path d="M355 0H722V120L655 182Q625 200 585 192Q560 188 545 172Z" fill="#fff" opacity=".06"/><path d="M0 165Q8 113 85 113H150Q185 113 210 138L350 285Q385 322 385 385V456H0Z" fill="#fff" opacity=".06"/></svg>
+        <div class="logo"><i>e</i><b>Boks</b></div><div class="type">Age credentials</div>
+        <div class="ph" onclick="pick()"><svg viewBox="0 0 24 24"><use href="#per"/></svg></div>
+        <div class="age">18+</div>
+      </div></div></div>
+    </div>
+    <div class="dots"><i class="on"></i><i></i></div>
+    <div class="list">
+      <button class="row" onclick="pick()"><svg class="ic"><use href="#uadd"/></svg><span>Add passport photo</span></button>
+      <button class="row" onclick="landscape()"><svg class="ic"><use href="#rot"/></svg><span>Landscape mode</span></button>
+      <button class="row" onclick="go('share')"><svg class="ic"><use href="#scan"/></svg><span>Share your information</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- SHARE -->
+<section class="screen" id="s-share">
+  <div class="top"><button class="back" onclick="go('home')"><svg class="ic"><use href="#chev"/></svg></button><span class="h">Share your information</span><span style="width:44px"></span></div>
+  <div class="scroll" style="padding-top:12px">
+    <div class="qr"><canvas id="qr" width="370" height="370"></canvas></div>
+    <div class="list" id="tg"></div>
+  </div>
+</section>
+
+<!-- LOGIN -->
+<section class="screen login" id="s-login">
+  <div class="logo"><i>e</i><b>Boks</b></div>
+  <button class="btn red" onclick="go('home')">Log in</button>
+  <div class="pw">Powered by dewa</div>
+</section>
+
+<!-- SETTINGS -->
+<section class="screen" id="s-settings">
+  <div class="top"><span></span><button class="pill signout" onclick="go('login')">Sign out</button></div>
+  <div class="scroll">
+    <h1 class="title">Settings</h1>
+    <div class="list">
+      <button class="row" onclick="go('security')"><svg class="ic"><use href="#lock"/></svg><span>Security</span></button>
+      <button class="row" onclick="go('language')"><svg class="ic"><use href="#globe"/></svg><span>Language</span></button>
+      <button class="row" onclick="go('about')"><svg class="ic"><use href="#info"/></svg><span>About</span></button>
+      <button class="row" onclick="go('activity')"><svg class="ic"><use href="#hist"/></svg><span>Activity</span></button>
+      <button class="row" onclick="go('help')"><svg class="ic"><use href="#help"/></svg><span>Help</span></button>
+    </div>
+    <button class="btn" onclick="$('#del').classList.add('on')">Delete e-Wallet</button>
+    <div class="ver">1.10.22 (127)</div>
+  </div>
+</section>
+
+<section class="screen" id="s-security">
+  <div class="top"><button class="back" onclick="go('settings')"><svg class="ic"><use href="#chev"/></svg></button><span class="h">Security</span><span style="width:44px"></span></div>
+  <div class="scroll form">
+    <div class="avatar"><div class="ph" onclick="pick()"><svg viewBox="0 0 24 24"><use href="#per"/></svg></div></div>
+    <div class="hint">Tap to change passport photo</div>
+    <label for="nameIn">Full name</label><input id="nameIn" value="Marcus Paul Smith" autocomplete="off">
+    <button class="btn red" style="margin:28px 0 0;width:100%" onclick="save()">Save changes</button>
+  </div>
+</section>
+
+<section class="screen" id="s-language">
+  <div class="top"><button class="back" onclick="go('settings')"><svg class="ic"><use href="#chev"/></svg></button><span class="h">Language</span><span style="width:44px"></span></div>
+  <div class="scroll"><div class="list" id="langs"></div></div>
+</section>
+
+<section class="screen" id="s-about">
+  <div class="top"><button class="back" onclick="go('settings')"><svg class="ic"><use href="#chev"/></svg></button><span class="h">About</span><span style="width:44px"></span></div>
+  <div class="scroll"><div class="list">
+    <div class="row"><span>App</span><b style="font-weight:500;color:var(--dim)">e-Boks ID</b></div>
+    <div class="row"><span>Version</span><b style="font-weight:500;color:var(--dim)">1.10.22 (127)</b></div>
+    <div class="row"><span>Publisher</span><b style="font-weight:500;color:var(--dim)">e-Boks A/S</b></div>
+  </div></div>
+</section>
+
+<section class="screen" id="s-activity">
+  <div class="top"><button class="back" onclick="go('settings')"><svg class="ic"><use href="#chev"/></svg></button><span class="h">Activity</span><span style="width:44px"></span></div>
+  <div class="scroll"><div class="sub" style="text-align:center;padding-top:60px">No activity yet. Times you share your information will show up here.</div></div>
+</section>
+
+<section class="screen" id="s-help">
+  <div class="top"><button class="back" onclick="go('settings')"><svg class="ic"><use href="#chev"/></svg></button><span class="h">Help</span><span style="width:44px"></span></div>
+  <div class="scroll"><div class="list">
+    <button class="row"><svg class="ic"><use href="#help"/></svg><span>FAQ</span></button>
+    <button class="row"><svg class="ic"><use href="#info"/></svg><span>Contact support</span></button>
+  </div></div>
+</section>
+
+<!-- TAB BAR -->
+<nav class="tabs pill">
+  <button class="tab on" data-t="home" onclick="go('home')"><svg class="ic"><use href="#doc"/></svg>Home</button>
+  <button class="tab" data-t="settings" onclick="go('settings')"><svg class="ic"><use href="#gear"/></svg>Settings</button>
+</nav>
+</div>
+
+<div class="modal" id="del"><div>
+  <h3>Delete e-Wallet</h3><p>Are you sure you want to delete your e-Wallet? This can't be undone.</p>
+  <span class="g"><button onclick="$('#del').classList.remove('on')">Cancel</button><button class="d" onclick="$('#del').classList.remove('on');go('login')">Delete</button></span>
+</div></div>
+
+<div id="land" onclick="if(event.target===this)closeL()"><button id="lx" onclick="closeL()">✕</button><div id="lc"></div></div>
+<input type="file" id="file" accept="image/*" hidden>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const GROUP={home:'home',settings:'settings',security:'settings',language:'settings',about:'settings',activity:'settings',help:'settings'};
+let qt;
+function go(id){
+  $$('.screen').forEach(s=>s.classList.toggle('on',s.id==='s-'+id));
+  document.body.classList.toggle('notabs',!GROUP[id]);
+  $$('.tab').forEach(t=>t.classList.toggle('on',t.dataset.t===GROUP[id]));
+  clearInterval(qt);
+  if(id==='share'){drawQr();qt=setInterval(drawQr,1000)}
+}
+// carousel dots
+const car=$('#car');
+car.addEventListener('scroll',()=>{const i=Math.round(car.scrollLeft/car.clientWidth);$$('.dots i').forEach((d,n)=>d.classList.toggle('on',n===i))},{passive:true});
+// photo
+const pick=()=>$('#file').click();
+$('#file').addEventListener('change',e=>{
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>$$('.ph').forEach(p=>{p.innerHTML='';const im=new Image();im.src=r.result;p.append(im)});
+  r.readAsDataURL(f);
+});
+// profile
+function save(){$$('.nm').forEach(n=>n.textContent=$('#nameIn').value.trim()||'Marcus Paul Smith');go('settings')}
+// landscape
+function landscape(){
+  const i=Math.round(car.scrollLeft/car.clientWidth);
+  $('#lc').innerHTML=car.children[i].querySelector('.cw').outerHTML;
+  $('#land').classList.add('on');
+}
+function closeL(){$('#land').classList.remove('on')}
+// share toggles
+$('#tg').innerHTML=['User ID','Birthday','Name','Over 15','Over 16','Over 18'].map((t,i)=>`<div class="row"><span>${t}</span><button class="sw${i===4?' off':''}" onclick="this.classList.toggle('off')" aria-label="${t}"></button></div>`).join('');
+// language
+$('#langs').innerHTML=['English','Dansk','Deutsch','Svenska','Norsk'].map((l,i)=>`<button class="row" onclick="$$('#langs .ok').forEach(o=>o.style.visibility='hidden');this.querySelector('.ok').style.visibility='visible'"><span>${l}</span><svg class="ic ok" style="visibility:${i?'hidden':'visible'}"><use href="#ok"/></svg></button>`).join('');
+// QR (decorative, refreshes like a live code)
+function drawQr(){
+  const c=$('#qr'),x=c.getContext('2d'),N=37,u=c.width/N,F=[[0,0],[0,N-7],[N-7,0]];
+  x.fillStyle='#fff';x.fillRect(0,0,c.width,c.width);x.fillStyle='#000';
+  for(let r=0;r<N;r++)for(let k=0;k<N;k++){
+    const f=F.find(([a,b])=>r>=a&&r<a+7&&k>=b&&k<b+7);let on;
+    if(f){const i=r-f[0],j=k-f[1];on=i%6===0||j%6===0||(i>1&&i<5&&j>1&&j<5)}
+    else if((r<8&&(k<8||k>=N-8))||(r>=N-8&&k<8))on=false;
+    else on=Math.random()>.5;
+    if(on)x.fillRect(k*u,r*u,u+.5,u+.5);
+  }
+}
+</script>
+</body>
+</html>
