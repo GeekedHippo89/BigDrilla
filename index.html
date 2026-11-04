@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -11,9 +11,11 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{--red:#b01c2e;--s:#1c1c1e;--line:#38383a;--dim:#8e8e93}
-html,body{height:100%;background:#000;color:#fff;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+html,body{height:100%;width:100%;background:#000;color:#fff;overflow:hidden;overscroll-behavior:none;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-.app{position:fixed;top:0;left:0;right:0;height:100vh;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
+body{position:fixed;top:0;left:0}
+.app{position:fixed;top:0;left:0;width:100%;height:100vh;overflow:hidden;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
+@supports (height:100dvh){.app{height:100dvh}}
 .screen{display:none;flex:1;min-height:0;flex-direction:column}
 .screen.on{display:flex}
 .screen.fade{animation:sf .28s ease both}
@@ -30,8 +32,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .title{font-size:34px;line-height:41px;font-weight:700;letter-spacing:-.3px;padding:13px 16px 0}
 .title+.list{margin-top:9px}
 .ic{width:24px;height:24px;color:var(--red);stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
-.acts{display:flex;gap:2px;padding:2px 6px}
-.acts button{display:flex;padding:4px}.acts .ic{display:block;width:28px;height:28px;stroke-width:1.6}
+.acts{display:flex;align-items:center;gap:18px;height:43px;padding:0 14px 0 4px}
+.acts button{display:flex;padding:4px;margin:-4px}.acts .ic{display:block;width:25px;height:25px;stroke-width:1.6}
 .back{display:flex;align-items:center;width:44px;height:44px;justify-content:center;padding:0;background:var(--s);border:1px solid rgba(255,255,255,.09);border-radius:50%}
 .back .ic{width:22px;height:22px;stroke-width:2.2;color:#fff}
 .h{font-size:17px;font-weight:600}
@@ -75,10 +77,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .ver{text-align:center;color:#2c4152;font-size:17px;margin-top:76px}
 
 /* tab bar */
-.tabs{position:absolute;left:50%;transform:translateX(-50%);bottom:max(14px,calc(env(safe-area-inset-bottom) * .64));display:grid;grid-template-columns:90px 90px;padding:4px;z-index:20}
-.ind{position:absolute;top:4px;bottom:4px;left:4px;width:90px;border-radius:99px;background:#000;transition:transform .5s cubic-bezier(.3,1.25,.45,1)}
-.tabs[data-i="1"] .ind{transform:translateX(90px)}
-.tab{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 0 5px;font-size:12px;font-weight:600;transition:color .3s}
+.tabs{position:absolute;left:50%;transform:translateX(-50%);bottom:max(14px,calc(env(safe-area-inset-bottom) * .64));display:grid;grid-template-columns:89px 89px;padding:4px;z-index:20;box-sizing:content-box}
+.ind{position:absolute;top:4px;bottom:4px;left:4px;width:89px;border-radius:99px;background:#000;transition:transform .5s cubic-bezier(.3,1.25,.45,1)}
+.tabs[data-i="1"] .ind{transform:translateX(89px)}
+.tab{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0 4px;font-size:12px;font-weight:600;transition:color .3s}
 .tab .ic{color:#fff;transition:color .3s}
 .tab.on,.tab.on .ic{color:var(--red)}
 body.notabs .tabs{display:none}
@@ -116,7 +118,7 @@ body.notabs .tabs{display:none}
 .modal h3{font-size:20px;margin-bottom:10px}.modal p{color:var(--dim);line-height:1.45;margin-bottom:22px}
 .modal .g{display:flex;gap:10px}.modal button{flex:1;padding:15px;border-radius:99px;background:#2c2c2e;font-weight:600;font-size:16px}
 .modal button.d{background:var(--red)}
-#land{position:fixed;inset:0;z-index:99;background:#000;display:none}
+#land{position:fixed;inset:0;z-index:99;background:#000;display:none;overflow:hidden}
 #land.on{display:block}
 #lc{position:absolute;top:50%;left:50%;width:min(calc(100vh - 56px),620px);transform:translate(-50%,-50%) rotate(90deg)}
 #lx{position:absolute;top:calc(14px + env(safe-area-inset-top));right:16px;width:42px;height:42px;border-radius:50%;background:var(--s);font-size:20px}
