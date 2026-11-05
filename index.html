@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="apple-touch-startup-image" href="splash-1206x2622.png" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
 <link rel="apple-touch-startup-image" href="splash-1320x2868.png" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
 <link rel="apple-touch-startup-image" href="splash-1179x2556.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
@@ -41,7 +42,7 @@ body{position:fixed;top:0;left:0;touch-action:pan-x}
 .title{font-size:34px;line-height:41px;font-weight:700;letter-spacing:-.3px;padding:13px 16px 0}
 .title+.list{margin-top:9px}
 .ic{width:24px;height:24px;color:var(--red);stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
-.acts{display:flex;align-items:center;gap:18px;height:43px;padding:0 14px 0 4px}
+.acts{display:flex;align-items:center;gap:18px;height:43px;padding:0 12.5px 0 2px}
 .acts button{display:flex;padding:4px;margin:-4px}.acts .ic{display:block;width:25px;height:25px;stroke-width:1.6}
 .back{display:flex;align-items:center;width:44px;height:44px;justify-content:center;padding:0;background:var(--s);border:1px solid rgba(255,255,255,.09);border-radius:50%}
 .back .ic{width:22px;height:22px;stroke-width:2.2;color:#fff}
@@ -53,7 +54,7 @@ body{position:fixed;top:0;left:0;touch-action:pan-x}
 .car::-webkit-scrollbar{display:none}
 .slide{flex:0 0 100%;scroll-snap-align:center;padding:0 5%}
 .cw{container-type:inline-size}
-.card{position:relative;overflow:hidden;isolation:isolate;contain:paint;aspect-ratio:722/456;border-radius:3.9cqw;color:#fff;background:linear-gradient(135deg,#2c080d 0%,#6a101c 34%,#9c1727 70%,#bb1f31 100%);--c:#4a0d15}
+.card{position:relative;overflow:hidden;isolation:isolate;contain:paint;aspect-ratio:722/454;border-radius:3.9cqw;color:#fff;background:linear-gradient(135deg,#2c080d 0%,#6a101c 34%,#9c1727 70%,#bb1f31 100%);--c:#4a0d15}
 .card.teal{background:linear-gradient(115deg,#02262f 0%,#12323d 25%,#1f3f4a 50%,#435a65 70%,#667a85 88%,#7a8891 100%);--c:#12303a}
 .card svg.bg{position:absolute;inset:0;width:100%;height:100%}
 .card::after{content:"";position:absolute;top:-15%;left:0;width:42%;height:130%;pointer-events:none;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.04) 18%,rgba(255,255,255,.22) 50%,rgba(255,255,255,.04) 82%,transparent 100%);animation:shine 2.4s ease-in-out infinite}
@@ -142,7 +143,7 @@ body.notabs .tabs{display:none}
 <symbol id="uadd" viewBox="0 0 24 24"><circle cx="9" cy="7.5" r="3.5"/><path d="M2.5 19v-.5A4.5 4.5 0 0 1 7 14h2.5"/><circle cx="17" cy="17" r="4.5" fill="currentColor"/><path d="M17 15v4M15 17h4" stroke="#1c1c1e"/></symbol>
 <symbol id="rot" viewBox="0 0 24 24"><rect x="5" y="8.5" width="13" height="9" rx="2"/><path d="M3.5 7A5.5 5.5 0 0 1 9 3.5l1.5.1M9.2 1.4l1.5 2.2-2.3 1.4M20.5 17a5.5 5.5 0 0 1-5.5 3.5l-1.5-.1M14.8 22.6l-1.5-2.2 2.3-1.4"/></symbol>
 <symbol id="doc" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></symbol>
-<symbol id="gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.2" stroke-width="2.2" stroke-dasharray="1.5 2.06"/><circle cx="12" cy="12" r="8"/><path d="M12 12l-5.2-3.2M12 12l5.2-3.2M12 12v6.2"/></symbol>
+<symbol id="gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.7" fill="none" stroke-width="1.6" stroke-linecap="butt" stroke-dasharray="1.35 2.01"/><circle cx="12" cy="12" r="9.25" fill="none" stroke-width="1.3"/><circle cx="12" cy="12" r="1.75" fill="none" stroke-width="1.5"/><path d="M14.2 12H21M10.9 10.1L7.4 4.1M10.9 13.9L7.4 19.9" fill="none" stroke-width="1.4" stroke-linecap="butt"/></symbol>
 <symbol id="lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
 <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><ellipse cx="12" cy="12" rx="4" ry="9.5"/><path d="M2.5 12h19M4 7.5h16M4 16.5h16"/></symbol>
 <symbol id="info" viewBox="0 0 24 24"><path d="M12 10.5v8M12 5.5v.01" stroke-width="2"/></symbol>
